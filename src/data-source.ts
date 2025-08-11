@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
-import { User } from './src/users/entities/user.entity';
+import { Solicitation } from './solicitations/entities/solicitation.entity';
+import { User } from './users/entities/user.entity';
 
 // Carrega variáveis de ambiente do .env
 config();
@@ -12,7 +13,7 @@ export default new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [User], // adicione mais entidades conforme necessário
+  entities: [User, Solicitation], // adicione mais entidades conforme necessário
   migrations: ['src/migrations/**/*.ts'],
   synchronize: false,
 });

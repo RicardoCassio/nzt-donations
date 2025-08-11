@@ -7,6 +7,7 @@ import { SolicitationsModule } from './solicitations/solicitations.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
+import { Solicitation } from './solicitations/entities/solicitation.entity';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { User } from './users/entities/user.entity';
           username: configService.get('DB_USER'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_NAME'),
-          entities: [User],
+          entities: [User, Solicitation],
           migrations: ['src/migrations/**/*.ts'],
           synchronize: false, // cuidado com isso em produção!
         };

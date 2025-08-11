@@ -1,19 +1,33 @@
-import { Injectable } from '@nestjs/common';
-import { CreateSolicitationDto } from './dto/create-solicitation.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateSolicitationDto } from './dto/update-solicitation.dto';
+import { Solicitation } from './entities/solicitation.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SolicitationsService {
-  create(createSolicitationDto: CreateSolicitationDto) {
-    return 'This action adds a new solicitation';
+  constructor(
+    @InjectRepository(Solicitation)
+    private solicitationRepository: Repository<Solicitation>,
+  ) {}
+
+  async create(solicitationData: Partial<Solicitation>): Promise<Solicitation> {
+    const solicitation = this.solicitationRepository.create(solicitationData)
+    return this.solicitationRepository.save(solicitation);
   }
 
   findAll() {
-    return `This action returns all solicitations`;
+    return Solicitation;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} solicitation`;
+  async findOneByID(id: number): Promise<Solicitation> {
+    const solicitation = await this.solicitationRepository.findOne({
+      where: { id },
+    });
+    if (!solicitation) {
+      throw new NotFoundException(`Solicitation with id ${id} not found`);
+    }
+    return solicitation;
   }
 
   update(id: number, updateSolicitationDto: UpdateSolicitationDto) {

@@ -7,8 +7,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  OneToMany,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Solicitation } from 'src/solicitations/entities/solicitation.entity';
 
 @Entity('user')
 export class User {
@@ -29,6 +31,18 @@ export class User {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({ nullable: true })
+  profilePhoto: string; // URL ou caminho da foto
+
+  @Column({ nullable: true })
+  city: string;
+
+  @Column({ length: 2, nullable: true })
+  uf: string; // Sigla do estado (ex: SP, RJ)
+
+  @OneToMany(() => Solicitation, (solicitation) => solicitation.user)
+  solicitations: Solicitation[];
 
   @CreateDateColumn()
   createdAt: Date;

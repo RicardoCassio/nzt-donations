@@ -27,7 +27,7 @@ export class SolicitationsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.solicitationsService.findOne(+id);
+    return this.solicitationsService.findOneByID(+id);
   }
 
   @Patch(':id')
