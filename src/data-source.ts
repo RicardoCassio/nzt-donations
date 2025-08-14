@@ -13,7 +13,7 @@ export default new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [User, Solicitation], // adicione mais entidades conforme necessário
+  entities: [User, Solicitation],
   migrations: ['src/migrations/**/*.ts'],
   synchronize: false,
 });

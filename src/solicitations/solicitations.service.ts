@@ -17,7 +17,7 @@ export class SolicitationsService {
   }
 
   findAll() {
-    return Solicitation;
+    //return Solicitation;
   }
 
   async findOneByID(id: number): Promise<Solicitation> {

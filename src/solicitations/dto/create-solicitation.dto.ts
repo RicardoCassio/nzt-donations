@@ -1,11 +1,11 @@
 import {
   IsString,
-  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsNumber,
   IsInt,
   Min,
+  IsIn,
 } from 'class-validator';
 
 export class CreateSolicitationDto {
@@ -17,7 +17,7 @@ export class CreateSolicitationDto {
   @IsNotEmpty()
   description: string;
 
-  @IsEnum(['pending', 'in_progress', 'completed', 'cancelled'])
+  @IsIn(['pending', 'in_progress', 'completed', 'cancelled'])
   @IsOptional()
   status?: 'pending' | 'in_progress' | 'completed' | 'cancelled';
 
