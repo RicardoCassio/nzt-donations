@@ -2,7 +2,6 @@ import {
   IsString,
   IsNotEmpty,
   IsOptional,
-  IsNumber,
   IsInt,
   Min,
   IsIn,
@@ -28,8 +27,4 @@ export class CreateSolicitationDto {
   @IsString()
   @IsNotEmpty()
   chavePix: string;
-
-  @IsNumber()
-  @IsNotEmpty()
-  userId: number; // FK do usuário criador
 }

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
 } from '@nestjs/common';
 import { SolicitationsService } from './solicitations.service';
 import { CreateSolicitationDto } from './dto/create-solicitation.dto';
@@ -16,8 +17,12 @@ export class SolicitationsController {
   constructor(private readonly solicitationsService: SolicitationsService) {}
 
   @Post()
-  create(@Body() createSolicitationDto: CreateSolicitationDto) {
-    return this.solicitationsService.create(createSolicitationDto);
+  create(
+    @Body() createSolicitationDto: CreateSolicitationDto,
+    @Request() req: Request & { user: { id: number } }, // tipagem segura
+  ) {
+    const userId = req.user.id; // 🔹 vem do JWT payload
+    return this.solicitationsService.create(createSolicitationDto, userId);
   }
 
   @Get()

@@ -14,10 +14,10 @@ export class Solicitation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @Column('text')
+  @Column('text', { nullable: false })
   description: string;
 
   @Column({
@@ -27,14 +27,14 @@ export class Solicitation {
   })
   status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
 
-  @Column({ type: 'bigint' })
+  @Column({ type: 'bigint', nullable: false })
   valor: number; // valor em centavos
 
-  @Column()
+  @Column({ nullable: true })
   chavePix: string;
 
-  @ManyToOne(() => User, { eager: true })
-  @JoinColumn({ name: 'user_id' }) // nome da coluna FK no banco
+  @ManyToOne(() => User, { eager: true, nullable: false })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @CreateDateColumn()

@@ -3,6 +3,7 @@ import { UpdateSolicitationDto } from './dto/update-solicitation.dto';
 import { Solicitation } from './entities/solicitation.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class SolicitationsService {
@@ -11,8 +12,18 @@ export class SolicitationsService {
     private solicitationRepository: Repository<Solicitation>,
   ) {}
 
-  async create(solicitationData: Partial<Solicitation>): Promise<Solicitation> {
-    const solicitation = this.solicitationRepository.create(solicitationData)
+  async create(
+    solicitationData: Partial<Solicitation>,
+    userId: number,
+  ): Promise<Solicitation> {
+    if (!userId) {
+      throw new Error('UserId não definido, verifique o JWT ou controller');
+    }
+    const solicitation = this.solicitationRepository.create({
+      ...solicitationData,
+      user: { id: userId } as User, // associa o usuário logado
+    });
+
     return this.solicitationRepository.save(solicitation);
   }
 
