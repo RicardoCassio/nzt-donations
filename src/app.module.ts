@@ -25,6 +25,10 @@ import { Solicitation } from './solicitations/entities/solicitation.entity';
           username: configService.get('DB_USER'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_NAME'),
+          ssl: {
+            ca: process.env.SSL_CERT,
+            rejectUnauthorized: false,
+          },
           entities: [User, Solicitation],
           migrations: ['src/migrations/**/*.ts'],
           synchronize: false, // cuidado com isso em produção!
